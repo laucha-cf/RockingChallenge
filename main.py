@@ -3,6 +3,7 @@ from modules.connection import connect_with_database, create_database, close_con
 from modules.connection import create_tables, load_db
 from modules.etl import etl_disney, etl_netflix
 from dotenv import load_dotenv
+import pandas as pd
 import logging
 import boto3
 import os
@@ -45,6 +46,7 @@ if __name__ == '__main__':
     #Obtenemos los dataframes luego del proceso ETL
     df_netflix, df_show_types = etl_netflix( 'raw_data/netflix_titles.csv' )
     df_disney = etl_disney( 'raw_data/disney_plus_titles.csv' )
+    df_master = pd.concat([df_disney, df_netflix])
 
     #Conexión con BDD por defecto
     conn, cur = connect_with_database( conn, cur, HOST, 'postgres', USER, PASSWORD )
@@ -55,6 +57,6 @@ if __name__ == '__main__':
     create_tables( DBMS, USER, PASSWORD, HOST, PORT, DB_NAME )
 
     #Cargamos las tablas con sus respectivos CSVs
-    load_db( [df_netflix, df_disney, df_show_types],
-             ['netflix', 'disney', 'show_type'],
+    load_db( [df_master, df_show_types],
+             ['master_table', 'show_type'],
              DBMS, USER, PASSWORD, HOST, PORT, DB_NAME )

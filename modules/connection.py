@@ -67,9 +67,9 @@ def create_tables(dbms, user, password, host, port, db_name):
         type = Column(String(20))
         type_id = Column(Integer, primary_key=True)
 
-    #Tabla netflix
-    class Netflix(Base):
-        __tablename__ = 'netflix'
+    #Tabla master
+    class Master(Base):
+        __tablename__ = 'master_table'
         id = Column(Integer, primary_key=True)
         type_id = Column(Integer, ForeignKey('show_type.type_id'))
         title = Column(String(100), default='No Title')
@@ -82,22 +82,7 @@ def create_tables(dbms, user, password, host, port, db_name):
         duration = Column(String(6), default='No Duration')
         listed_id = Column(String(50), default='No Listed')
         description = Column(String(100), default='No Description')
-
-    #Tabla disney
-    class Disney(Base):
-        __tablename__ = 'disney'
-        id = Column(Integer, primary_key=True)
-        type_id = Column(Integer, ForeignKey('show_type.type_id'))
-        title = Column(String(100))
-        director = Column(String(100))
-        cast = Column(String(100))
-        country = Column(String(50))
-        date_added = Column(Date)
-        release_year = Column(Integer)
-        rating = Column(String(6))
-        duration = Column(String(6))
-        listed_id = Column(String(50))
-        description = Column(String(100))
+        source = Column(String(25))
         
     Base.metadata.create_all(engine)
     

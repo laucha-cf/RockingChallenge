@@ -13,6 +13,11 @@ def etl_disney( path ):
     """
     df_disney = pd.read_csv(path)
 
+    #Split en los siguientes campos
+    df_disney['cast'] =      df_disney['cast'].str.split(', ').tolist()
+    df_disney['country'] =   df_disney['country'].str.split(', ').tolist()
+    df_disney['listed_in'] = df_disney['listed_in'].str.split(', ').tolist()
+
     #Reemplazamos null por valores default
     df_disney['title'] =        df_disney['title'].fillna(value='No Title')
     df_disney['director'] =     df_disney['director'].fillna(value='No Director')
@@ -44,6 +49,8 @@ def etl_disney( path ):
     #Convertimos a tipo datetime
     df_disney['date_added'] = pd.to_datetime(df_disney['date_added'], format='%B %d %Y')
 
+    df_disney['source'] = 'Disney'
+
     return df_disney
 
 
@@ -59,6 +66,11 @@ def etl_netflix( path ):
                  tambien puede ser utilizada para el dataframe df_disney.
     """
     df_netflix = pd.read_csv( path, sep=';' )
+
+    #Split en los siguientes campos
+    df_netflix['cast'] = df_netflix['cast'].str.split(', ').tolist()
+    df_netflix['country'] = df_netflix['country'].str.split(', ').tolist()
+    df_netflix['listed_in'] = df_netflix['listed_in'].str.split(', ').tolist()
 
     #Reemplazamos null por valores default
     df_netflix['title'] = df_netflix['title'].fillna(value='No Title')
@@ -111,5 +123,7 @@ def etl_netflix( path ):
 
     #Convertimos a tipo datetime
     df_netflix['date_added'] = pd.to_datetime(df_netflix['date_added'], format='%B %d %Y')
+
+    df_netflix['source'] = 'Netflix'
 
     return df_netflix, df_type
