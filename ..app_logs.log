@@ -1,6 +1,0 @@
-2023-02-12 18:32:24,657:INFO:Archivos ['disney_plus_titles.csv', 'netflix_titles.csv'] descargados correctamente.
-2023-02-12 18:32:24,816:INFO:Conexión establecida con base de datos postgres.
-2023-02-12 18:32:24,816:INFO:Conexión cerrada.
-2023-02-12 18:32:24,879:INFO:Tablas creadas correctamente.
-2023-02-12 18:32:27,658:INFO:Tabla master_table cargada correctamente.
-2023-02-12 18:32:27,673:INFO:Tabla show_type cargada correctamente.
